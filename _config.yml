@@ -1,14 +1,14 @@
 # main text of home
-name: John Doe
-bio: A Man who travels the world eating noodles
+name: David Fastovich
+bio: 1st year M.S. student in Geography at U.W. Madison
 
 # twitter summary info
-description: A blog about technology and stuff related
+description: Im a paleoecologist/paleclimatologist in training with broad interests in abrupt changes
 
 # if it's an external image, update below for true
 # better with square images
 external-image: false
-picture: assets/images/profile.jpg
+picture: assets/images/profile.JPG
 
 # If you want to include your resume, set to true
 # and specify source (external or local).
@@ -19,7 +19,7 @@ resume-url: https://google.com/?q=my+resume
 url: https://koppl.in/indigo
 # your url: http://USERNAME.github.io
 
-permalink: /:title/
+permalink: davidfastovich.github.io
 
 # To enable google analytics, supply your token below
 # analytics-google: 'UA-MYANALYTICS'
@@ -34,16 +34,16 @@ disqus:
   categories: [blog, project] # only show disqus for posts that have these categories
 
 # if you don't have any of social below, comment the line
-facebook: myfacebook
-twitter: mytwitter
+# facebook: myfacebook
+# twitter: mytwitter
 # google: mygoogle
 # instagram: myinstagram
 # pinterest: mypinterest
 # linkedin: mylinkedin
 # youtube: myyoutube
 # spotify: myspotify
-github: mygithub
-# stackoverflow: 7044681/mystackoverflow
+github: davidfastovich
+# stackoverflow: 7044681/mystackov  erflow
 # quora: userquora
 # reddit: username
 medium: medium
