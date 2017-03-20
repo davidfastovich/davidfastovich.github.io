@@ -46,9 +46,9 @@ github: davidfastovich
 # stackoverflow: 7044681/mystackov  erflow
 # quora: userquora
 # reddit: username
-medium: medium
+# medium: medium
 # vimeo: myvimeo
-email: myemail@gmail.com
+email: fastovich@wisc.edu
 
 authors:
     johndoe:
@@ -78,7 +78,8 @@ projects: true
 
 # if you don't need "about" or "blog", comment them out below
 about: true
-blog: true
+cv: true
+# blog: true
 
 # do you want to show the "read time" of the posts?
 read-time: true
