@@ -12,4 +12,3 @@ layout: page
 		</td>
 		<td> 2016 </td>
 	</tr>
-</ul>
