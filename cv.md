@@ -2,9 +2,11 @@
 title: Curriculum Vitae
 layout: page
 ---
+<h2 style="font-size:150%;"> Education </h2>
+<hr>
 <table style="width:100%">
 	<tr>
-		<td style="font-size:120%;"><b> Bachelors of Science with Honors, Environmental Science and Management </b></td>
+		<td><b> Bachelors of Science with Honors, Environmental Science and Management </b></td>
 		<td align="right"> 2016 </td>
 	</tr>
 	<tr class="separator" />
