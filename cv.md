@@ -106,7 +106,7 @@ layout: page
 	</tr>
 	<tr class="separator" />
 	<tr style="font-size:90%;">
-		<td> Sih' Lab </td>
+		<td> Sih Lab </td>
 	</tr>
 	<tr style="font-size:75%;">
 		<td>
