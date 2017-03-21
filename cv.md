@@ -153,7 +153,3 @@ layout: page
 	</tr>
 	<tr class="separator" />
 </table>
-
-<p class="extra">
-		<a href="assets/images/David.Fastovich.CV" download class="extra" style="text-decoration:none"> PDF Download </a>
-</p>
