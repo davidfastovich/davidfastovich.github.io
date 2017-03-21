@@ -24,3 +24,7 @@
 {% endif %}
 
 {% include nav.html %}
+
+{% if site.google_analytics and jekyll.environment == 'production' %}
+{% include analytics-google.html %}
+{% endif %}
