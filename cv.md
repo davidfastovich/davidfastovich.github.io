@@ -18,12 +18,10 @@ layout: page
 			<ul>
 				<li> Academic Emphasis: Climate Change and Air Quality </li>
 				<li> Minor: Biological Sciences </li>
-				<li> GPA: 3.68 </li>
+				<li> GPA: 3.66 </li>
 			</ul>
 		</td>
 	</tr>
-	<tr class="separator" />
-	<tr class="separator" />
 	<tr>
 		<td style="font-size:105%;"><b> Masters of Science, Geography </b></td>
 		<td align="right"> Expected 2017 </td>
@@ -61,6 +59,7 @@ layout: page
 			</ul>
 		</td>
 	</tr>
+	<tr class="separator" />
 </table>
 
 <h2 style="font-size:150%;"> Research Experience </h2>
@@ -117,3 +116,40 @@ layout: page
 			</ul>
 		</td>
 	</tr>
+	<tr class="separator" />
+</table>
+
+<h2 style="font-size:150%;"> Honors </h2>
+<hr>
+<table style="width:100%">
+	<tr>
+		<td style="font-size:105%;"><b> Deans List </b></td>
+		<td align="right"> 2014 - 2016 </td>
+	</tr>
+	<tr class="separator" />
+	<tr style="font-size:90%;">
+		<td> College of Agricultural and Environmental Science, University of California, Davis </td>
+	</tr>
+	<tr class="separator" />
+	<tr class="separator" />
+	<tr>
+		<td style="font-size:105%;"><b> Deparmental Citation </b></td>
+		<td align="right"> 2016 </td>
+	</tr>
+	<tr class="separator" />
+	<tr style="font-size:90%;">
+		<td> Environmental Science and Management, University of California, Davis </td>
+	</tr>
+	<tr class="separator" />
+	<tr class="separator" />
+</table>
+
+<h2 style="font-size:150%;"> Awards </h2>
+<hr>
+<table style="width:100%">
+	<tr>
+		<td style="font-size:105%;"><b> John M. Long Endowed Scholarship </b></td>
+		<td align="right"> 2015 </td>
+	</tr>
+	<tr class="separator" />
+</table>
