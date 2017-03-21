@@ -128,7 +128,7 @@ layout: page
 	</tr>
 	<tr class="separator" />
 	<tr style="font-size:90%;">
-		<td> College of Agricultural and Environmental Science, University of California, Davis </td>
+		<td> College of Agricultural and Environmental Sciences, University of California, Davis </td>
 	</tr>
 	<tr class="separator" />
 	<tr class="separator" />
