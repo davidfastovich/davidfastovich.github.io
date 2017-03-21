@@ -64,7 +64,7 @@ layout: page
 
 <h2 style="font-size:150%;"> Research Experience </h2>
 <hr>
-<table style="width:100%">
+<!--table style="width:100%">
 	<tr>
 		<td style="font-size:105%;"><b> Lab Manager </b></td>
 		<td align="right"> 2017 to present </td>
@@ -82,7 +82,7 @@ layout: page
 				<li> Curated primary lab data on lab server </li>
 			</ul>
 		</td>
-	</tr>
+	</tr-->
 	<tr>
 		<td style="font-size:105%;"><b> Research Assistant </b></td>
 		<td align="right"> 2015 - 2016 </td>
