@@ -35,12 +35,32 @@ layout: page
 	<tr style="font-size:75%;">
 		<td>
 			<ul>
-				<li> Advisor: Jack Williams </li>
+				<li> Advisor: John (Jack) Williams </li>
 				<li> Thesis: Abrupt changes at Bonnet Lake, OH </li>
 			</ul>
 		</td>
 	</tr>
 	<tr class="separator" />
+</table>
+
+<h2 style="font-size:150%;"> Teaching Experience </h2>
+<hr>
+<table style="width:100%">
+	<tr>
+		<td style="font-size:105%;"><b> Teaching Assistant </b></td>
+		<td align="right"> 9/2016 - 1/2017 </td>
+	</tr>
+	<tr class="separator" />
+	<tr style="font-size:90%;">
+		<td> Geography 127 </td>
+	</tr>
+	<tr style="font-size:75%;">
+		<td>
+			<ul>
+				<li> Maintained lab safety standards </li>
+			</ul>
+		</td>
+	</tr>
 </table>
 
 <h2 style="font-size:150%;"> Research Experience </h2>
@@ -59,6 +79,41 @@ layout: page
 			<ul>
 				<li> Maintained lab safety standards </li>
 				<li> Responsible for hiring and training lab assistants </li>
+				<li> Managed Deglacial Project which involved working up all data from sediment lake cores from Ohio and Pennsylvania </li>
+				<li> Curated primary lab data on lab server </li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td style="font-size:105%;"><b> Research Assistant </b></td>
+		<td align="right"> 2015 - 2016 </td>
+	</tr>
+	<tr class="separator" />
+	<tr style="font-size:90%;">
+		<td> Hastings' Lab </td>
+	</tr>
+	<tr style="font-size:75%;">
+		<td>
+			<ul>
+				<li> Built microcosm landscapes for Assisted Migration Experiment using <i>Tribolium casteneum</i></li>
+				<li> Prepared growth medium for flour beetles </li>
+				<li> Collected and manged migration data </li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td style="font-size:105%;"><b> Research Assistant </b></td>
+		<td align="right"> 2015 - 2016 </td>
+	</tr>
+	<tr class="separator" />
+	<tr style="font-size:90%;">
+		<td> Sih' Lab </td>
+	</tr>
+	<tr style="font-size:75%;">
+		<td>
+			<ul>
+				<li> Performed general animal husbandry to keep California killifish alive and in good health for experiments </li>
+				<li> Assisted in conducted and filming behavioral assays with California killifish </li>
 			</ul>
 		</td>
 	</tr>
