@@ -35,7 +35,7 @@ disqus:
 
 # if you don't have any of social below, comment the line
 # facebook: myfacebook
-# twitter: mytwitter
+twitter: davidfastovich
 # google: mygoogle
 # instagram: myinstagram
 # pinterest: mypinterest
@@ -57,12 +57,6 @@ authors:
         external-image: false
         picture: assets/images/profile.jpg
         twitter: johndoe
-    jamesfoster:
-        name: James Foster
-        bio: A Man who develops software with coffee
-        external-image: false
-        picture: assets/images/james.jpg
-        twitter: jamesfoster
 
 # do you want a larger site? change the option below
 # options: [normal, large] | default: normal
@@ -74,7 +68,7 @@ width: large
 # paginate_path: "blog/:num/"
 
 # if you don't need projects, comment the *projects* configs below
-projects: true
+# projects: true
 
 # if you don't need "about" or "blog", comment them out below
 about: true
