@@ -46,7 +46,7 @@ layout: page
 <table style="width:100%">
 	<tr>
 		<td style="font-size:105%;"><b> Teaching Assistant </b></td>
-		<td align="right"> 9/2016 - 1/2017 </td>
+		<td align="right"> 2016 </td>
 	</tr>
 	<tr class="separator" />
 	<tr style="font-size:90%;">
