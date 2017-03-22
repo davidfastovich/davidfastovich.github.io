@@ -50,12 +50,12 @@ layout: page
 	</tr>
 	<tr class="separator" />
 	<tr style="font-size:90%;">
-		<td> Geography 127 </td>
+		<td> Geography 127 - Physical Systems of the Environment </td>
 	</tr>
 	<tr style="font-size:75%;">
 		<td>
 			<ul>
-				<li> Maintained lab safety standards </li>
+				<li> Taught two 30 student lab sections which involved providing students with hands on experience in methods commonly used in Earth system sciences. </li>
 			</ul>
 		</td>
 	</tr>
