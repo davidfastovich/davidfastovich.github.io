@@ -34,7 +34,7 @@ layout: page
 		<td>
 			<ul>
 				<li> Advisor: John (Jack) Williams </li>
-				<li> Thesis: Abrupt changes at Bonnet Lake, OH </li>
+				<li> Thesis: brGDGT temperature reconstruction from Bonnet Lake – the role of temperature in abrupt changes </li>
 			</ul>
 		</td>
 	</tr>
@@ -55,11 +55,28 @@ layout: page
 	<tr style="font-size:75%;">
 		<td>
 			<ul>
-				<li> Taught two 30 student lab sections which involved providing students with hands on experience in methods commonly used in Earth system sciences. </li>
+				<li> Taught two 30 student lab sections which involved providing students with hands on laboratory experience in methods commonly used in Earth system sciences. </li>
 			</ul>
 		</td>
 	</tr>
 	<tr class="separator" />
+	<tr>
+		<td style="font-size:105%;"><b> Head Teaching Assistant </b></td>
+		<td align="right"> 2017 </td>
+	</tr>
+	<!--tr class="separator" />
+	<tr style="font-size:90%;">
+		<td> Geography 120 - Introduction to the Earth System </td>
+	</tr>
+	<tr style="font-size:75%;">
+		<td>
+			<ul>
+				<li> Something about what I taught here. </li>
+				<li> Something about logistics here. </li>
+			</ul>
+		</td>
+	</tr>
+	<tr class="separator" /-->
 </table>
 
 <h2 style="font-size:150%;"> Research Experience </h2>

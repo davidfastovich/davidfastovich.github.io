@@ -4,7 +4,7 @@ layout: page
 ---
 ![Profile Image]({{ site.url }}/{{ site.picture }})
 
-<p>I'm currently a first year masters student at the University of Wisconsin, Madison working in the
+<p>I'm currently a second year masters student at the University of Wisconsin, Madison working in the
 <a href="https://williamspaleolab.github.io/">Williams' Paleo Lab</a>. My interests broadly surround
 the fields of paleoclimatology and paleoecology, and my current research is at the nexus of these two
 fields. My research is attempting to detect and predict abrupt changes, while taking into account the
