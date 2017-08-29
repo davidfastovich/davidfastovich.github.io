@@ -60,11 +60,11 @@ layout: page
 		</td>
 	</tr>
 	<tr class="separator" />
-	<tr>
+	<!--tr>
 		<td style="font-size:105%;"><b> Head Teaching Assistant </b></td>
 		<td align="right"> 2017 </td>
 	</tr>
-	<!--tr class="separator" />
+	<tr class="separator" />
 	<tr style="font-size:90%;">
 		<td> Geography 120 - Introduction to the Earth System </td>
 	</tr>
