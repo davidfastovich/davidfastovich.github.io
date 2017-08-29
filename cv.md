@@ -140,7 +140,7 @@ layout: page
 <hr>
 <table style="width:100%">
 	<tr>
-		<td style="font-size:105%;"><b> Deans List </b></td>
+		<td style="font-size:105%;"><b> Dean's List </b></td>
 		<td align="right"> 2014 - 2016 </td>
 	</tr>
 	<tr class="separator" />
