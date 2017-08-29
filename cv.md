@@ -113,7 +113,7 @@ layout: page
 			<ul>
 				<li> Built microcosm landscapes for Assisted Migration Experiment using <i>Tribolium casteneum</i></li>
 				<li> Prepared growth medium for flour beetles </li>
-				<li> Collected and manged migration data </li>
+				<li> Collected and managed migration data </li>
 			</ul>
 		</td>
 	</tr>
