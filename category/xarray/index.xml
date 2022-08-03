@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>xarray | David Fastovich</title>
+    <link>https://davidfastovich.github.io/category/xarray/</link>
+      <atom:link href="https://davidfastovich.github.io/category/xarray/index.xml" rel="self" type="application/rss+xml" />
+    <description>xarray</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 09 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://davidfastovich.github.io/media/icon_hu4d8c3890dd2f354f123815dd94885854_106863_512x512_fill_lanczos_center_3.png</url>
+      <title>xarray</title>
+      <link>https://davidfastovich.github.io/category/xarray/</link>
+    </image>
+    
+    <item>
+      <title>Python, Jupyter Notebooks, and xarray introduction</title>
+      <link>https://davidfastovich.github.io/post/xarray_intro/</link>
+      <pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://davidfastovich.github.io/post/xarray_intro/</guid>
+      <description>&lt;p&gt;During my dissertation research, I began playing with climate model output, which ended up integral in two of my three chapters. None of the work in the dissertation would have been possible without tools such as &lt;a href=&#34;https://docs.xarray.dev/en/stable/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xarray&lt;/a&gt; which made working with climate model data as painless as can possibly be. I&amp;rsquo;m writing this blog post in 2022, and I originally wrote this script for a lab meeting in 2021 meant to demonstrate why Jupyter Notebooks are so great, however, I think the introduction to netCDFs (the default climate model format) and &lt;code&gt;xarray&lt;/code&gt; are the real strengths of the code below. My lab at the time was invested in the R ecosystem, so the goal of the script below was to demonstrate how to leverage the strengths of two coding languages within the same script. If you follow along with the script below and have an introductory understanding of R and Python here&amp;rsquo;s what you&amp;rsquo;ll end up learning:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;netCDF file structure&lt;/li&gt;
+&lt;li&gt;Opening and manipulating netCDF files in Python using &lt;code&gt;xarray&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Plot data from netCDF files in Python using &lt;code&gt;matplotlib&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Pass data from &lt;code&gt;pandas&lt;/code&gt; in Python to R&lt;/li&gt;
+&lt;li&gt;Plot using &lt;code&gt;ggplot2&lt;/code&gt; in R&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If following along with the script isn&amp;rsquo;t your cup of tea, feel free to open the script and actually run the code through Binder! Just click on the icon below and wait a few minutes for the Binder environment to build. From there, you&amp;rsquo;ll be able to run and edit the code for yourself in JupyterLab! If you&amp;rsquo;re unfamiliar with JupyterLab, wait for an upcoming blog post that introduces JupyterLab and how to use it for scientific computing - I&amp;rsquo;ll be sure to link it here once it&amp;rsquo;s up.&lt;/p&gt;
+&lt;script src=&#34;https://gist.github.com/davidfastovich/93b1b569cb8fd8433d9d80d9ff8725ea.js&#34;&gt;&lt;/script&gt;
+&lt;p&gt;&lt;a href=&#34;https://mybinder.org/v2/gh/davidfastovich/Python-Jupyter-Tutorial/c3aba8a7a98825e5112bebdf87c0f1cb304d6cf0?urlpath=lab%2Ftree%2FR%2BPython.ipynb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;https://mybinder.org/badge_logo.svg&#34; alt=&#34;Binder&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
