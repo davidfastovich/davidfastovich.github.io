@@ -1,0 +1,1835 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.6.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="David Fastovich" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Let&#39;s get started with Python by installing it!" />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://davidfastovich.github.io/post/pt_1_python_install/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.c7b8d9abd591ba2253ea42747e3ac3f5.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.3495fc6150afdd177f1d04fbba9f5e2c.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94104334-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-94104334-1', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  
+  <link rel="icon" type="image/png" href="/media/icon_hu4d8c3890dd2f354f123815dd94885854_106863_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu4d8c3890dd2f354f123815dd94885854_106863_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://davidfastovich.github.io/post/pt_1_python_install/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@davidfastovich" />
+    <meta property="twitter:creator" content="@davidfastovich" />
+  
+  <meta property="og:site_name" content="David Fastovich" />
+  <meta property="og:url" content="https://davidfastovich.github.io/post/pt_1_python_install/" />
+  <meta property="og:title" content="Part 1 - Installing Python | David Fastovich" />
+  <meta property="og:description" content="Let&#39;s get started with Python by installing it!" /><meta property="og:image" content="https://davidfastovich.github.io/post/pt_1_python_install/featured.png" />
+    <meta property="twitter:image" content="https://davidfastovich.github.io/post/pt_1_python_install/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2022-10-05T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-10-05T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://davidfastovich.github.io/post/pt_1_python_install/"
+  },
+  "headline": "Part 1 - Installing Python",
+  
+  "image": [
+    "https://davidfastovich.github.io/post/pt_1_python_install/featured.png"
+  ],
+  
+  "datePublished": "2022-10-05T00:00:00Z",
+  "dateModified": "2022-10-05T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "David Fastovich"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Syracuse University",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://davidfastovich.github.io/media/icon_hu4d8c3890dd2f354f123815dd94885854_106863_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "Let's get started with Python by installing it!"
+}
+</script>
+
+  
+
+  
+
+  
+
+
+  <title>Part 1 - Installing Python | David Fastovich</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="f6cd029c8dd80694f4921584cd381a73" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.613040fe4f2c0f007b4dcb64404201cb.js"></script>
+
+  
+
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">David Fastovich</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">David Fastovich</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>About Me</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#courses"><span>Courses</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#skills"><span>Skills</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#posts"><span>Blog</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#contact"><span>Contact</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Part 1 - Installing Python</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      David Fastovich</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 5, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/python/">Python</a>, <a href="/category/jupyter/">Jupyter</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 259px;">
+  <div style="position: relative">
+    <img src="/post/pt_1_python_install/featured_hu0531a5f7ae6f2d6ec7eecbd91936bb9d_630231_720x2500_fit_q75_h2_lanczos_3.webp" width="720" height="259" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Open science is becoming the standard for reproducible science and many fields have coalesced around several coding languages in support of this. R and Python have seen tremendous use in the academy and for good reason: both are free and open-source with endless packages that extend core functionality that are commonly well documented. <strong>This series will work through everything you&rsquo;ll need to get up running with Python and even begin doing some basic data manipulation and statistics.</strong> In Part 1, we&rsquo;re going to focus on getting Python installed and running, which we will verify by using Python as a calculator.</p>
+<p>There are several ways to install Python and all have their advantages and disadvantages. I&rsquo;ve found that using <a href="https://www.anaconda.com/" target="_blank" rel="noopener">Anaconda</a> or <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">miniconda</a> tends to be the easiest and the most user friendly. Anaconda has the advantage of having a graphical user interface, rather than relying on the command line making it a fantastic entry point for beginners. What&rsquo;s the difference between simply going to <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python&rsquo;s</a> website and installing that version? In terms of the Python installation, very little. However, in practice Anaconda solves many quality of life issues that plain Python installs have. For instance:</p>
+<ul>
+<li>Aren&rsquo;t comfortable with using command line tools? No problem! Anaconda has a complete GUI, even for installing packages.</li>
+<li>Want to install a package? Anaconda commonly installs packages a bit faster with less of a headache.</li>
+<li>Want to install a different version of Python? It&rsquo;s a breeze with Anaconda! Just create a new Python environment and specify which version of Python you&rsquo;d like to use.</li>
+<li>Want to do spatial data analysis? Gone are the days of dealing with managing to get Python to talk to an <a href="https://www.osgeo.org/projects/gdal/" target="_blank" rel="noopener">OGR/GDAL</a> installation. Anaconda will install Python, OGR/GDAL, and make sure they&rsquo;re communicating nicely with one another (this is also a huge boon if you use R).</li>
+</ul>
+<p>For everything that Anaconda brings to the table there are several downsides. The biggest issue seems to be installing Python modules that are not in the Anaconda repository. If you run into a Python module that is not hosted by Anaconda, you can still install it using <a href="https://pypi.org/project/pip/" target="_blank" rel="noopener"><code>pip</code></a> in the command line, but this is usually not recommended. Anaconda likes to manage it&rsquo;s own dependencies and using <code>pip</code> can break Python environments because Anaconda and <code>pip</code> don&rsquo;t talk to one another too well. This means that <code>pip</code> may install a version of a module that doesn&rsquo;t agree with other installed modules. In practice, I&rsquo;ve found this issue to be quite rare, but it does come up occasionally and there are usually ways around it.</p>
+<p>With the background out the way let&rsquo;s walk through the steps we need to install Anaconda, Python within it, and then write our first Python script.</p>
+<h2 id="step-1---download-anaconda">Step 1 - Download Anaconda</h2>
+<p>Follow hyperlink at right to download <a href="https://www.anaconda.com/" target="_blank" rel="noopener">Anaconda</a>.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_434641e949fd8ea8f74193f1f3bbf4e8.webp 400w,
+               /post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_a64fc78d053018ada420f93498d1443e.webp 760w,
+               /post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_434641e949fd8ea8f74193f1f3bbf4e8.webp"
+               width="760"
+               height="402"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h2 id="step-2---install-anaconda">Step 2 - Install Anaconda</h2>
+<p>Double click on the .exe (Windows) or .pkg (MacOS) file and follow the prompts to install. No need to make any changes here - the default install settings and location are all okay to use (i.e. just click okay a bunch of times).</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_893aec3f0f7118c8de21511aa17cab88.webp 400w,
+               /post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_f484590d5f7a5be616f24d7b17d085bc.webp 760w,
+               /post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_893aec3f0f7118c8de21511aa17cab88.webp"
+               width="665"
+               height="555"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_fbd81bac73c43626dc8a1955ca7dee95.webp 400w,
+               /post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_8816ee477ae497d91f1884472c502e16.webp 760w,
+               /post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_fbd81bac73c43626dc8a1955ca7dee95.webp"
+               width="747"
+               height="581"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_1e6ce63a867a84bdc6bb91bba4d5d78a.webp 400w,
+               /post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_2574aac9829e12012d117e13a9cdae26.webp 760w,
+               /post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_1e6ce63a867a84bdc6bb91bba4d5d78a.webp"
+               width="747"
+               height="581"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h2 id="step-3---getting-comfortable-with-anaconda-navigator">Step 3 - Getting Comfortable with Anaconda Navigator</h2>
+<p>Anaconda automatically creates a base environment with Python and many common tools preinstalled. However, its good practice to create new environments for different projects to ensure that dependencies between modules don&rsquo;t break code for different projects. For the purposes of this tutorial, we&rsquo;ll use the base environment that Anaconda creates. However, if you ever create a new Python environment be aware that it comes with <em>minimal</em> modules preinstalled. When I create new environments I typically install the scientific Python stack as it contains the most commonly used functions you will need (<a href="https://numpy.org/" target="_blank" rel="noopener">NumPy</a>, <a href="https://scipy.org/" target="_blank" rel="noopener">SciPy</a>, <a href="https://matplotlib.org/" target="_blank" rel="noopener">matplotlib</a>, <a href="https://ipython.org/" target="_blank" rel="noopener">IPython</a>, <a href="https://pandas.pydata.org/" target="_blank" rel="noopener">pandas</a>, <a href="https://www.sympy.org/en/index.html" target="_blank" rel="noopener">SymPy</a>, <a href="https://jupyter.org/" target="_blank" rel="noopener">Jupyter Lab</a>). Though not formally a part of the scientific Python stack I&rsquo;d recommend also installing <a href="https://www.spyder-ide.org/" target="_blank" rel="noopener">Spyder</a> for a good integrated development environment for Python that is an excellent alternative to Jupyter Lab.</p>
+<p>To open Anaconda, search for &ldquo;Anaconda Navigator&rdquo; in the Start Menu on a Windows Computer or Spotlight on a Mac.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_6bf3960e034421c2cd6656fef297018d.webp 400w,
+               /post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_99d92e1b5f3ed1aef225e7c2621ff925.webp 760w,
+               /post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_6bf3960e034421c2cd6656fef297018d.webp"
+               width="760"
+               height="619"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>This is the screen that will greet you when you open Anaconda Navigator:</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_14dc3ca0d469e1ffdb31e982e88c46da.webp 400w,
+               /post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_bdab5625b87a64749aae5baa03e4c6ee.webp 760w,
+               /post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_14dc3ca0d469e1ffdb31e982e88c46da.webp"
+               width="760"
+               height="476"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Let&rsquo;s familiarize ourselves with the layout. The currently active environment is listed to the right of &ldquo;Applications on&rdquo; and environments can be easily changed by clicking on the dropdown menu. What we see here are the pre-installed modules and programs in the &ldquo;base (root)&rdquo; environment. To view all existing environments, add modules, and manage environments you would click on the &ldquo;Environments&rdquo; tab where you should only see a single entry for the &ldquo;base (root)&rdquo; environment. We&rsquo;ll save this for another tutorial, so for now let&rsquo;s open up the integrated development environment we&rsquo;ll be using today, Jupyter Lab.</p>
+<h2 id="step-4---youre-first-script">Step 4 - You&rsquo;re First Script!</h2>
+<p>Let&rsquo;s use Jupyter Lab to write our first Python script and plot some data!</p>
+<p>Go back to the &ldquo;Home&rdquo; page by clicking on the navigation menu on the left had side of Anaconda Navigator and scroll down until you see the Jupyter Lab logo and a &ldquo;Launch&rdquo; button. Click on &ldquo;Launch&rdquo; and Jupyter Lab.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_743f7fd58b6186c2eb33a33ca489093a.webp 400w,
+               /post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_d2da2e6033b5d9d920ae8bc4cf43aaf9.webp 760w,
+               /post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_743f7fd58b6186c2eb33a33ca489093a.webp"
+               width="760"
+               height="476"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>That will open your browser and take you&rsquo;re locally hosted instance of Jupyter Lab. From here we can create a new notebook file (extension .ipynb) and write our first script. But first, let&rsquo;s change to a dark theme because it&rsquo;s a bit easier on our eyes and looks nicer.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_0fcc8307ded715bbb4bb2e45d512b770.webp 400w,
+               /post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_938ed47d966b374cb227eeb5fc494efe.webp 760w,
+               /post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_0fcc8307ded715bbb4bb2e45d512b770.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>From here click on the &ldquo;Python 3 (ipykernel) option to create a new Jupyter Notebook file.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_77f737577ca5731576f5eeddb9e7b426.webp 400w,
+               /post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_0491c6c115e0f4a4cf3bf3c0864d8567.webp 760w,
+               /post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_77f737577ca5731576f5eeddb9e7b426.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>This will be the screen that will greet you when you open a new Jupyter Notebook. Let&rsquo;s get acquainted with the features of a Jupyter Notebook.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_90e6f191d92258c56f4e7a2a8ad10d41.webp 400w,
+               /post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_c7aff4bc12e9cccce48d893a6e30a818.webp 760w,
+               /post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_90e6f191d92258c56f4e7a2a8ad10d41.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>The first empty box you see is called a &ldquo;cell&rdquo; and it can contain Python code, plain text, or Markdown code.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_56f4fc05dde34dd7cfec1a4685e0f9bd.webp 400w,
+               /post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_24dd5b5863a5dfe053620843d3eee86d.webp 760w,
+               /post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_56f4fc05dde34dd7cfec1a4685e0f9bd.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>By default, the first cell is defined as Python code, but let&rsquo;s change it to Markdown and title our first Jupyter Notebook to <code># My First Notebook</code>.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_750d74c7de7f4aa3f6b3a9207b995138.webp 400w,
+               /post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_6eba02b3e72e63be502b4ff75c054ea5.webp 760w,
+               /post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_750d74c7de7f4aa3f6b3a9207b995138.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_37904d34d015d6cb0524f0399245faa2.webp 400w,
+               /post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_257ce2eb7d2751d9c442bb33f28bcc89.webp 760w,
+               /post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_37904d34d015d6cb0524f0399245faa2.webp"
+               width="760"
+               height="461"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_04ffc32be58b26c33b96b243c49b1642.webp 400w,
+               /post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_ac19388babc0d069ca76aec86a76f5d7.webp 760w,
+               /post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_04ffc32be58b26c33b96b243c49b1642.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>On your keyboard hit Ctrl + Enter on PC/Linux or Command + Enter on a Mac to render the Markdown cell. Alternatively, you can go to &ldquo;Run&rdquo; and select &ldquo;Render All Markdown Cells&rdquo;.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_30d8b5508b76b5963f138114558727f1.webp 400w,
+               /post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_fe3fc31a8f5d4ac6ba090e7180b4e7e9.webp 760w,
+               /post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_30d8b5508b76b5963f138114558727f1.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Now that we have a title let&rsquo;s create a new cell below the title to hold our very first Python code. To do that, click the small plus sign in the top left hand corner of the main notebook interface. Alternatively, you can hit B, B twice on your keyboard. Again, notice how the cell defaults to &ldquo;Code&rdquo; which means it will run Python code.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_b20754cd08b787e3322fb5f069625dc7.webp 400w,
+               /post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_cae0707e2aaafbd8c6056f1640b4db8f.webp 760w,
+               /post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_b20754cd08b787e3322fb5f069625dc7.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>From here, lets use Python to print a message for us by typing in <code>print(&quot;Hello World)</code> into the new cell and run the cell by using our keyboard shortcut from earlier (Ctrl + Enter on PC/Linux or Command + Enter on a Mac). You&rsquo;ll be greeted with a small message below your cell!</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_5e7e290ff5183d8353c78a87a25c4317.webp 400w,
+               /post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_08d35bb1c3ad0f18bf43a132466c1d57.webp 760w,
+               /post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_5e7e290ff5183d8353c78a87a25c4317.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Now, printing &ldquo;Hello World&rdquo; isn&rsquo;t quite scientific computing, so let&rsquo;s also use this cell as a calculator by typing in <code>2 + 2</code> below <code>print(&quot;Hello World&quot;)</code> and run the cell by using our keyboard shortcut from earlier (Ctrl + Enter on PC/Linux or Command + Enter on a Mac). Once you do that you will be greeted with the answer: <code>4</code>!</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_156a91e84388223939928843e5fc8c5c.webp 400w,
+               /post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_bc14f0601d007112880d59078acfc9e9.webp 760w,
+               /post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_156a91e84388223939928843e5fc8c5c.webp"
+               width="760"
+               height="481"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>That&rsquo;s all there is to it! You now have the tools at hand to start writing your own Python scripts and programs for all of your scientific computing needs.</p>
+<p>I find that half the battle of starting to learn a new computing language (or anything for the most part) is learning the language. So now that we have a bit of experience with Python let&rsquo;s finish up with a brief review of some vocabulary we learned today.</p>
+<h2 id="vocabulary">Vocabulary</h2>
+<ul>
+<li><strong>Anaconda</strong> - a tool used to create and manage Python installations (environments)</li>
+<li><strong>Environment</strong> - a self-contained installation of Python/R in Anaconda navigator. A single computer can have many environments depending on the needs of the project. For instance, I may want an old Python 2.X environment if I have a tool that only supports Python 2.X.</li>
+<li><strong>Jupyter Lab</strong> - an integrated development environment for Jupyter Notebooks</li>
+<li><strong>Jupyter Notebook</strong> - an interactive document that can store Python (and R) code, Markdown, and plain text to facilitate open science through the easy sharing of code with the .ipynb file extension</li>
+<li><strong>Cell</strong> - the fundamental unit of the Jupyter Notebook, which contains either code, Markdown, or plain text</li>
+</ul>
+<p>Part 2 will introduce you to using <a href="https://numpy.org/" target="_blank" rel="noopener">NumPy</a>, <a href="https://matplotlib.org/" target="_blank" rel="noopener">matplotlib</a>, and <a href="https://pandas.pydata.org/" target="_blank" rel="noopener">pandas</a> for ingesting, processing, and plotting data. Once written you will find a link for it <a href="/post/pt_2_matplotlib_numpy_pandas/">here</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/python/">Python</a>
+  
+  <a class="badge badge-light" href="/tag/jupyter/">Jupyter</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hu06374760ab03907758cf60904827382f_839659_270x270_fill_q75_lanczos_center.jpg" alt="David Fastovich">
+    
+
+    <div class="media-body">
+      <h5 class="card-title">David Fastovich</h5>
+      <h6 class="card-subtitle">Postdoctoral Scholar in Paleoclimate Dynamics</h6>
+      <p class="card-text">My research interests are focused on understanding past global change using proxies and models.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/dfastovi@syr.edu" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/DavidFastovich" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/davidfastovich" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=HhNaFTEAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0002-0340-9819" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.researchgate.net/profile/David-Fastovich" target="_blank" rel="noopener">
+        <i class="ai ai-researchgate"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://publons.com/wos-op/researcher/3695935/david-fastovich/" target="_blank" rel="noopener">
+        <i class="ai ai-publons"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/uploads/fastovich_cv.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2022 David Fastovich. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.c251366b4128fd5e6b046d4c97a62a51.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<script src="/en/js/wowchemy.min.5f2242f9e416ca8987b1818a173b5651.js"></script>
+
+
+
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

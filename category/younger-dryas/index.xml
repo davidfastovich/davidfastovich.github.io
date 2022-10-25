@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Younger Dryas | David Fastovich</title>
+    <link>https://davidfastovich.github.io/category/younger-dryas/</link>
+      <atom:link href="https://davidfastovich.github.io/category/younger-dryas/index.xml" rel="self" type="application/rss+xml" />
+    <description>Younger Dryas</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 05 Oct 2022 09:57:58 -0400</lastBuildDate>
+    <image>
+      <url>https://davidfastovich.github.io/media/icon_hu4d8c3890dd2f354f123815dd94885854_106863_512x512_fill_lanczos_center_3.png</url>
+      <title>Younger Dryas</title>
+      <link>https://davidfastovich.github.io/category/younger-dryas/</link>
+    </image>
+    
+    <item>
+      <title>Spatial fingerprints and mechanisms of precipitation and temperature changes during the Younger Dryas in eastern North America</title>
+      <link>https://davidfastovich.github.io/publication/qsr_2022/</link>
+      <pubDate>Wed, 05 Oct 2022 09:57:58 -0400</pubDate>
+      <guid>https://davidfastovich.github.io/publication/qsr_2022/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

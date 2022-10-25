@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pandas | David Fastovich</title>
+    <link>https://davidfastovich.github.io/category/pandas/</link>
+      <atom:link href="https://davidfastovich.github.io/category/pandas/index.xml" rel="self" type="application/rss+xml" />
+    <description>Pandas</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 05 Oct 2022 10:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://davidfastovich.github.io/media/icon_hu4d8c3890dd2f354f123815dd94885854_106863_512x512_fill_lanczos_center_3.png</url>
+      <title>Pandas</title>
+      <link>https://davidfastovich.github.io/category/pandas/</link>
+    </image>
+    
+    <item>
+      <title>Part 2 - Data Ingest and Plotting</title>
+      <link>https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/</link>
+      <pubDate>Wed, 05 Oct 2022 10:00:00 +0000</pubDate>
+      <guid>https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/</guid>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Now that we have Python setup within Anaconda, let&amp;rsquo;s use it for some science! Here, we will plot data using &lt;a href=&#34;https://matplotlib.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matplotlib&lt;/a&gt; and &lt;a href=&#34;https://docs.xarray.dev/en/stable/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xarray&lt;/a&gt;, which will require data wrangling using &lt;a href=&#34;https://numpy.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NumPy&lt;/a&gt;, and &lt;a href=&#34;https://pandas.pydata.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pandas&lt;/a&gt;. Through this process we will build a skillset fundamental to (geo)data science that can be applied to a variety of fields outside of the geosciences.&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;re following along in this tutorial series, there&amp;rsquo;s no need to install any Python modules in Anaconda as the previous tutorial made sure that the environment we created had the entire scientific Python stack installed. So, let&amp;rsquo;s open up Jupyter Lab and create a new Jupyter Notebook to hold the code that we&amp;rsquo;ll be writing today.&lt;/p&gt;
+&lt;h1 id=&#34;time-series-plotting-with-matplotlib&#34;&gt;Time series plotting with matplotlib&lt;/h1&gt;
+&lt;p&gt;Within our notebook we&amp;rsquo;ll need to call the three packages that we need and this can be accomplished with this code chunk:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import matplotlib.pyplot as plt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import numpy as np
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import pandas as pd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Within this code, we call the &lt;a href=&#34;https://matplotlib.org/stable/tutorials/introductory/pyplot.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matplotlib Pyplot&lt;/a&gt; module into the Python instance as &lt;code&gt;plt&lt;/code&gt;, so we will access all functions by including the prefix &lt;code&gt;plt.&lt;/code&gt; and then typing in the function we want (e.g. &lt;code&gt;plt.scatter&lt;/code&gt; for a scatterplot or &lt;code&gt;plt.plot&lt;/code&gt; for a line plot). This same syntax is used to import NumPy and pandas and their associated functions.&lt;/p&gt;
+&lt;p&gt;With the modules we need in place, let&amp;rsquo;s ingest a timeseries of global mean annual temperature through time and plot it.&lt;/p&gt;
+&lt;p&gt;First let&amp;rsquo;s start ingesting the csv by calling &lt;code&gt;pd.read_csv&lt;/code&gt; and providing it with the URL of the HadCRUT5 time series. Note, that pandas has many functions and can readily ingest data from Excel and text data without a problem.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Read in csv from the HadCRUT5 dataset
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5 = pd.read_csv(&amp;#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/diagnostics/HadCRUT.5.0.1.0.analysis.summary_series.global.annual.csv&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Lets take a look at the first and last 5 rows of the data using pd.head()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# This tells us what the data looks like and the column names which we need to plot the data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5.head
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With the dataset imported and stored as the &lt;code&gt;hadcrut5&lt;/code&gt; variable, lets plot it. But first, lets get some terminology out the way. &lt;code&gt;matplotlib&lt;/code&gt; creates &amp;ldquo;figures&amp;rdquo; that are composed of &amp;ldquo;subplots&amp;rdquo;. This structure is very powerful as it allows you to stitch together any plots you want within the same figure, as long as they&amp;rsquo;re separate subplots. Here, we will be creating a single figure composed of a single subplot which is apparent in the code. For a thorough explanation of how to use &lt;code&gt;matplotlib&lt;/code&gt; to create more complicated visualizations see this &lt;a href=&#34;https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;guide&lt;/a&gt;. Since we are only making a single time series plot, this code can be shortened quite a bit, but I&amp;rsquo;ve chosen to leave it verbose to get you thinking about &lt;code&gt;matplotlib&lt;/code&gt; plots as a collection of subplots because that&amp;rsquo;s a key feature of &lt;code&gt;matplotlib&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6)) # Figure size width, height in inches.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice how we call the &amp;lsquo;Time&amp;rsquo; and &amp;lsquo;Anomaly (deg C)&amp;rsquo; columns that we uncovered by running &lt;code&gt;hadcrut5.head&lt;/code&gt; using brackets next to the pandas data frame variable name that we assigned earlier. The same can be accomplished by typing in &lt;code&gt;hadcrut5.Time&lt;/code&gt;, but using the bracket notation is preferable in case you have column names with spaces, as in &lt;code&gt;&#39;Anomaly (deg C)&#39;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_c978f18149039fa1628b187707880fa0.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_1e2510cf724c232e686a054d75c3c78e.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_c978f18149039fa1628b187707880fa0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Our plot still look&amp;rsquo;s a bit rough so lets polish it by adding axis labels and a title:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6)) # Figure size width, height in inches.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Subplot title
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_title(&amp;#39;Global Mean Annual Temperature Anomaly&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xlabel(&amp;#34;Year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Y-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_ylabel(&amp;#34;Temperature Anomaly (°C)&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_c4177d64efc22eba828c510bb456ce50.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_f765c2bba01defe05f7182489f722591.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_c4177d64efc22eba828c510bb456ce50.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The plot is looking quite a bit better but we can still improve it by removing some whitespace which will require modifying some existing code that we have. Namely, the line that we call the figure instance.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Notice how we&amp;#39;ve added the &amp;#39;constrained_layout&amp;#39; argument and set it to true
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6), constrained_layout=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Subplot title
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_title(&amp;#39;Global Mean Annual Temperature Anomaly&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xlabel(&amp;#34;Year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Y-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_ylabel(&amp;#34;Temperature Anomaly (°C)&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_16dccfba3f36f5dbdd1dc1dd982d6560.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_8e0140366f8834eb3060a7ca525c3e80.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_16dccfba3f36f5dbdd1dc1dd982d6560.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The plot is &lt;em&gt;almost&lt;/em&gt; perfect, however the automatic x-ticks generated by &lt;code&gt;matplotlib&lt;/code&gt; make it seem as the though the data extends to the year 2025 when it ends at the year 2022. Changing this portion of the plot will require using NumPy to produce a 1-dimensional array (1D vector) of the x-ticks that we want. We can make the process a bit easier by making use of a handy function in NumPy that makes arrays for us of a sequence of numbers, &lt;code&gt;np.arange&lt;/code&gt;. &lt;code&gt;np.arange&lt;/code&gt; has the arguments &lt;code&gt;start&lt;/code&gt; for the starting number of the sequence, &lt;code&gt;stop&lt;/code&gt; for the last number of the sequence, and &lt;code&gt;step&lt;/code&gt; for the step size to take in the sequence. We&amp;rsquo;ll start our sequence at 1850, end it at 2022, and take steps of 21.5 years. Unfortunately, using a step size of 21.5 will produce numbers with decimal points, which we can fix by appending the &lt;code&gt;.round()&lt;/code&gt; function to the &lt;code&gt;np.arange&lt;/code&gt; call.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6), constrained_layout=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Subplot title
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_title(&amp;#39;Global Mean Annual Temperature Anomaly&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xlabel(&amp;#34;Year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Y-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_ylabel(&amp;#34;Temperature Anomaly (°C)&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis ticks
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xticks(np.arange(start=1850, stop=2023, step=21.5).round())
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Although, I only gloss over it, NumPy is a critical package for scientific computing. It allows for the easy creation and manipulation of N-dimensional arrays necessary for machine learning, linear algebra, and climate model analysis (which we will get to in the next tutorial).&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_748938815e44b09297ec847bab6e356e.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_faf70fc95b517dcefcaca41e54cb1696.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_748938815e44b09297ec847bab6e356e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;plotting-spatial-data-with-xarray&#34;&gt;Plotting spatial data with xarray&lt;/h1&gt;
+&lt;p&gt;As Earth scientists we commonly work with spatial data which brings its own set of challenges for data analysis and visualization. We often have to contend with geographical coordinated systems (CRS), data in 4 dimensions (time, latitude, longitude, altitude), paleogeography, among many other complications. These issues require their own blog posts and for simplicity, we will ignore all of these issues. Our goal will be to download a dataset that has a spatial component using &lt;a href=&#34;https://docs.xarray.dev/en/stable/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xarray&lt;/a&gt; and plot it.&lt;/p&gt;
+&lt;p&gt;As with the previous section of this tutorial, let&amp;rsquo;s begin by loading &lt;code&gt;xarray&lt;/code&gt; into our Python shell.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import xarray as xr
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let&amp;rsquo;s download the spatially explicit global mean annual temperatures from GISTEMP v4, the counterpart to the time series plot we just made. Unlike &lt;code&gt;pandas&lt;/code&gt;, &lt;code&gt;xarray&lt;/code&gt; does not support reading files off of the internet (this is only half true, but to keep things simple we won&amp;rsquo;t worry about it), so we&amp;rsquo;ll have to manually download the data and put the data file in the correct location to read it into Python using &lt;code&gt;xarray&lt;/code&gt;. Download the HadCRUT5 netCDF file from &lt;a href=&#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and place the file in &lt;code&gt;C:\Users\&lt;/code&gt; on Windows or &lt;code&gt;~/&lt;/code&gt; on MacOS and most Linux distributions.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Read in file - if you get an error here, it likely means the file is not in the correct location
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_spatial = xr.open_dataset(&amp;#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Let&amp;#39;s take a look at the data structure
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_spatial
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;xarray.Dataset&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Dimensions:           (time: 2073, latitude: 36, longitude: 72, bnds: 2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Coordinates:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  * time              (time) datetime64[ns] 1850-01-16T12:00:00 ... 2022-09-16
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  * latitude          (latitude) float64 -87.5 -82.5 -77.5 ... 77.5 82.5 87.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  * longitude         (longitude) float64 -177.5 -172.5 -167.5 ... 172.5 177.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    realization       int64 100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Dimensions without coordinates: bnds
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Data variables:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    tas_mean          (time, latitude, longitude) float64 ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    time_bnds         (time, bnds) datetime64[ns] 1850-01-01 ... 2022-10-01
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    latitude_bnds     (latitude, bnds) float64 -90.0 -85.0 -85.0 ... 85.0 90.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    longitude_bnds    (longitude, bnds) float64 -180.0 -175.0 ... 175.0 180.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    realization_bnds  (bnds) int64 1 200
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Attributes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    comment:      2m air temperature over land blended with sea water tempera...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    history:      Data set built at: 2022-10-20T13:33:18+00:00
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    institution:  Met Office Hadley Centre / Climatic Research Unit, Universi...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    licence:      HadCRUT5 is licensed under the Open Government Licence v3.0...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    reference:    C. P. Morice, J. J. Kennedy, N. A. Rayner, J. P. Winn, E. H...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    source:       CRUTEM.5.0.1.0 HadSST.4.0.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    title:        HadCRUT.5.0.1.0 blended land air temperature and sea-surfac...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    version:      HadCRUT.5.0.1.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Conventions:  CF-1.7
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We&amp;rsquo;re particularly interested in the &lt;code&gt;Dimensions&lt;/code&gt; and &lt;code&gt;Data variables&lt;/code&gt;because that dictates how we will plot the data - we have 2073 time steps on a grid that is 72 longitude cells by 36 latitude cells. Importantly, the data we are interested in is within the &lt;code&gt;tas_mean&lt;/code&gt; data variable. We have 2073 time steps because the data is monthly and plotting 2073 time steps of temperature anomalies isn&amp;rsquo;t very informative, so let&amp;rsquo;s simplify this data by taking the average of the last decade. To do so, let&amp;rsquo;s first take annual averages for the entire dataset and then average over the last 10 years. Note, there are more elegant ways to write this code, but we&amp;rsquo;re trying to keep things simple.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# First take the annual mean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Note that this is noted weighted by days in each month for simplicity
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_annual_mean = hadcrut5_spatial[&amp;#39;tas_mean&amp;#39;].groupby(&amp;#34;time.year&amp;#34;).mean(&amp;#34;time&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# From annual means, let&amp;#39;s take the average of the last 10 years
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_last_decade = hadcrut5_annual_mean.sel(year=slice(2012, 2022)).mean(&amp;#34;year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We now have our average of the last 10 years of HadCRUT5, so let&amp;rsquo;s plot the data. We have three options for how to do so: 1) plotting with &lt;code&gt;xarrays&lt;/code&gt; built in &lt;code&gt;.plot()&lt;/code&gt; function, 2) manually plotting the data using &lt;code&gt;matplotlib&lt;/code&gt;, or 3) create subplots with &lt;code&gt;matplotlib&lt;/code&gt; but plot using &lt;code&gt;xarray&lt;/code&gt;. Option 1 is incredibly simple and great for quickly visualizing the data but has limited customization. Option 2 requires a bit more code but is much more customizable - figure size and subplot orientation can be readily changed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Option 1 --------------------------------------------------------------------
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_last_decade.plot()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Produces:&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_827a6db5ab754ffaef21bcbd32e67e14.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_2e752823cb8f87acd3b1ab17c4694406.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_827a6db5ab754ffaef21bcbd32e67e14.webp&#34;
+               width=&#34;389&#34;
+               height=&#34;279&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Option 3 --------------------------------------------------------------------
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (8, 5))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot - notice how we add the ax argument and point it to our created subplot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_last_decade.plot(ax=ax)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Produces:&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_0b725fbe9fb38a27393fa60594e76538.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_e9c3b7bafa87a885b4c65eb4b7b635e1.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_0b725fbe9fb38a27393fa60594e76538.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;475&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;In both plots we can make out the fundamental features of contemporary climate change! The Arctic is warming faster than the rest of the Earth and land masses are warming faster than the oceans. Neither of these visualizations are publication ready, so stay tuned for further tutorials on how to produce a polished, publication ready figure!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

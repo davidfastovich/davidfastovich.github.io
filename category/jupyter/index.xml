@@ -5,12 +5,884 @@
     <link>https://davidfastovich.github.io/category/jupyter/</link>
       <atom:link href="https://davidfastovich.github.io/category/jupyter/index.xml" rel="self" type="application/rss+xml" />
     <description>Jupyter</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 09 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 05 Oct 2022 10:00:00 +0000</lastBuildDate>
     <image>
       <url>https://davidfastovich.github.io/media/icon_hu4d8c3890dd2f354f123815dd94885854_106863_512x512_fill_lanczos_center_3.png</url>
       <title>Jupyter</title>
       <link>https://davidfastovich.github.io/category/jupyter/</link>
     </image>
+    
+    <item>
+      <title>Part 2 - Data Ingest and Plotting</title>
+      <link>https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/</link>
+      <pubDate>Wed, 05 Oct 2022 10:00:00 +0000</pubDate>
+      <guid>https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/</guid>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Now that we have Python setup within Anaconda, let&amp;rsquo;s use it for some science! Here, we will plot data using &lt;a href=&#34;https://matplotlib.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matplotlib&lt;/a&gt; and &lt;a href=&#34;https://docs.xarray.dev/en/stable/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xarray&lt;/a&gt;, which will require data wrangling using &lt;a href=&#34;https://numpy.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NumPy&lt;/a&gt;, and &lt;a href=&#34;https://pandas.pydata.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pandas&lt;/a&gt;. Through this process we will build a skillset fundamental to (geo)data science that can be applied to a variety of fields outside of the geosciences.&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;re following along in this tutorial series, there&amp;rsquo;s no need to install any Python modules in Anaconda as the previous tutorial made sure that the environment we created had the entire scientific Python stack installed. So, let&amp;rsquo;s open up Jupyter Lab and create a new Jupyter Notebook to hold the code that we&amp;rsquo;ll be writing today.&lt;/p&gt;
+&lt;h1 id=&#34;time-series-plotting-with-matplotlib&#34;&gt;Time series plotting with matplotlib&lt;/h1&gt;
+&lt;p&gt;Within our notebook we&amp;rsquo;ll need to call the three packages that we need and this can be accomplished with this code chunk:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import matplotlib.pyplot as plt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import numpy as np
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import pandas as pd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Within this code, we call the &lt;a href=&#34;https://matplotlib.org/stable/tutorials/introductory/pyplot.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matplotlib Pyplot&lt;/a&gt; module into the Python instance as &lt;code&gt;plt&lt;/code&gt;, so we will access all functions by including the prefix &lt;code&gt;plt.&lt;/code&gt; and then typing in the function we want (e.g. &lt;code&gt;plt.scatter&lt;/code&gt; for a scatterplot or &lt;code&gt;plt.plot&lt;/code&gt; for a line plot). This same syntax is used to import NumPy and pandas and their associated functions.&lt;/p&gt;
+&lt;p&gt;With the modules we need in place, let&amp;rsquo;s ingest a timeseries of global mean annual temperature through time and plot it.&lt;/p&gt;
+&lt;p&gt;First let&amp;rsquo;s start ingesting the csv by calling &lt;code&gt;pd.read_csv&lt;/code&gt; and providing it with the URL of the HadCRUT5 time series. Note, that pandas has many functions and can readily ingest data from Excel and text data without a problem.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Read in csv from the HadCRUT5 dataset
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5 = pd.read_csv(&amp;#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/diagnostics/HadCRUT.5.0.1.0.analysis.summary_series.global.annual.csv&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Lets take a look at the first and last 5 rows of the data using pd.head()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# This tells us what the data looks like and the column names which we need to plot the data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5.head
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With the dataset imported and stored as the &lt;code&gt;hadcrut5&lt;/code&gt; variable, lets plot it. But first, lets get some terminology out the way. &lt;code&gt;matplotlib&lt;/code&gt; creates &amp;ldquo;figures&amp;rdquo; that are composed of &amp;ldquo;subplots&amp;rdquo;. This structure is very powerful as it allows you to stitch together any plots you want within the same figure, as long as they&amp;rsquo;re separate subplots. Here, we will be creating a single figure composed of a single subplot which is apparent in the code. For a thorough explanation of how to use &lt;code&gt;matplotlib&lt;/code&gt; to create more complicated visualizations see this &lt;a href=&#34;https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;guide&lt;/a&gt;. Since we are only making a single time series plot, this code can be shortened quite a bit, but I&amp;rsquo;ve chosen to leave it verbose to get you thinking about &lt;code&gt;matplotlib&lt;/code&gt; plots as a collection of subplots because that&amp;rsquo;s a key feature of &lt;code&gt;matplotlib&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6)) # Figure size width, height in inches.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice how we call the &amp;lsquo;Time&amp;rsquo; and &amp;lsquo;Anomaly (deg C)&amp;rsquo; columns that we uncovered by running &lt;code&gt;hadcrut5.head&lt;/code&gt; using brackets next to the pandas data frame variable name that we assigned earlier. The same can be accomplished by typing in &lt;code&gt;hadcrut5.Time&lt;/code&gt;, but using the bracket notation is preferable in case you have column names with spaces, as in &lt;code&gt;&#39;Anomaly (deg C)&#39;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_c978f18149039fa1628b187707880fa0.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_1e2510cf724c232e686a054d75c3c78e.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_rough_hu20da9cd2abc131ffd8c80fa8486ca381_43854_c978f18149039fa1628b187707880fa0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Our plot still look&amp;rsquo;s a bit rough so lets polish it by adding axis labels and a title:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6)) # Figure size width, height in inches.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Subplot title
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_title(&amp;#39;Global Mean Annual Temperature Anomaly&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xlabel(&amp;#34;Year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Y-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_ylabel(&amp;#34;Temperature Anomaly (°C)&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_c4177d64efc22eba828c510bb456ce50.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_f765c2bba01defe05f7182489f722591.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_better_huc2272338a7b34a96327c64b3353ca22e_52063_c4177d64efc22eba828c510bb456ce50.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The plot is looking quite a bit better but we can still improve it by removing some whitespace which will require modifying some existing code that we have. Namely, the line that we call the figure instance.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Notice how we&amp;#39;ve added the &amp;#39;constrained_layout&amp;#39; argument and set it to true
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6), constrained_layout=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Subplot title
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_title(&amp;#39;Global Mean Annual Temperature Anomaly&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xlabel(&amp;#34;Year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Y-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_ylabel(&amp;#34;Temperature Anomaly (°C)&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_16dccfba3f36f5dbdd1dc1dd982d6560.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_8e0140366f8834eb3060a7ca525c3e80.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_better_2x_hu6746557bad7088f8c91204936cbb7ee9_58839_16dccfba3f36f5dbdd1dc1dd982d6560.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The plot is &lt;em&gt;almost&lt;/em&gt; perfect, however the automatic x-ticks generated by &lt;code&gt;matplotlib&lt;/code&gt; make it seem as the though the data extends to the year 2025 when it ends at the year 2022. Changing this portion of the plot will require using NumPy to produce a 1-dimensional array (1D vector) of the x-ticks that we want. We can make the process a bit easier by making use of a handy function in NumPy that makes arrays for us of a sequence of numbers, &lt;code&gt;np.arange&lt;/code&gt;. &lt;code&gt;np.arange&lt;/code&gt; has the arguments &lt;code&gt;start&lt;/code&gt; for the starting number of the sequence, &lt;code&gt;stop&lt;/code&gt; for the last number of the sequence, and &lt;code&gt;step&lt;/code&gt; for the step size to take in the sequence. We&amp;rsquo;ll start our sequence at 1850, end it at 2022, and take steps of 21.5 years. Unfortunately, using a step size of 21.5 will produce numbers with decimal points, which we can fix by appending the &lt;code&gt;.round()&lt;/code&gt; function to the &lt;code&gt;np.arange&lt;/code&gt; call.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (6, 6), constrained_layout=True)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111) # 111 means &amp;#34;1x1 grid, first subplot&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.plot(hadcrut5[&amp;#39;Time&amp;#39;], hadcrut5[&amp;#39;Anomaly (deg C)&amp;#39;])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Subplot title
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_title(&amp;#39;Global Mean Annual Temperature Anomaly&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xlabel(&amp;#34;Year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Y-axis label
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_ylabel(&amp;#34;Temperature Anomaly (°C)&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# X-axis ticks
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax.set_xticks(np.arange(start=1850, stop=2023, step=21.5).round())
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Although, I only gloss over it, NumPy is a critical package for scientific computing. It allows for the easy creation and manipulation of N-dimensional arrays necessary for machine learning, linear algebra, and climate model analysis (which we will get to in the next tutorial).&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_748938815e44b09297ec847bab6e356e.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_faf70fc95b517dcefcaca41e54cb1696.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/timeseries_best_huca4451a0c0dabc6c713cb38a9cf57976_59040_748938815e44b09297ec847bab6e356e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;plotting-spatial-data-with-xarray&#34;&gt;Plotting spatial data with xarray&lt;/h1&gt;
+&lt;p&gt;As Earth scientists we commonly work with spatial data which brings its own set of challenges for data analysis and visualization. We often have to contend with geographical coordinated systems (CRS), data in 4 dimensions (time, latitude, longitude, altitude), paleogeography, among many other complications. These issues require their own blog posts and for simplicity, we will ignore all of these issues. Our goal will be to download a dataset that has a spatial component using &lt;a href=&#34;https://docs.xarray.dev/en/stable/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xarray&lt;/a&gt; and plot it.&lt;/p&gt;
+&lt;p&gt;As with the previous section of this tutorial, let&amp;rsquo;s begin by loading &lt;code&gt;xarray&lt;/code&gt; into our Python shell.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import xarray as xr
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let&amp;rsquo;s download the spatially explicit global mean annual temperatures from GISTEMP v4, the counterpart to the time series plot we just made. Unlike &lt;code&gt;pandas&lt;/code&gt;, &lt;code&gt;xarray&lt;/code&gt; does not support reading files off of the internet (this is only half true, but to keep things simple we won&amp;rsquo;t worry about it), so we&amp;rsquo;ll have to manually download the data and put the data file in the correct location to read it into Python using &lt;code&gt;xarray&lt;/code&gt;. Download the HadCRUT5 netCDF file from &lt;a href=&#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and place the file in &lt;code&gt;C:\Users\&lt;/code&gt; on Windows or &lt;code&gt;~/&lt;/code&gt; on MacOS and most Linux distributions.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Read in file - if you get an error here, it likely means the file is not in the correct location
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_spatial = xr.open_dataset(&amp;#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Let&amp;#39;s take a look at the data structure
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_spatial
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;xarray.Dataset&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Dimensions:           (time: 2073, latitude: 36, longitude: 72, bnds: 2)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Coordinates:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  * time              (time) datetime64[ns] 1850-01-16T12:00:00 ... 2022-09-16
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  * latitude          (latitude) float64 -87.5 -82.5 -77.5 ... 77.5 82.5 87.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  * longitude         (longitude) float64 -177.5 -172.5 -167.5 ... 172.5 177.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    realization       int64 100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Dimensions without coordinates: bnds
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Data variables:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    tas_mean          (time, latitude, longitude) float64 ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    time_bnds         (time, bnds) datetime64[ns] 1850-01-01 ... 2022-10-01
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    latitude_bnds     (latitude, bnds) float64 -90.0 -85.0 -85.0 ... 85.0 90.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    longitude_bnds    (longitude, bnds) float64 -180.0 -175.0 ... 175.0 180.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    realization_bnds  (bnds) int64 1 200
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Attributes:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    comment:      2m air temperature over land blended with sea water tempera...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    history:      Data set built at: 2022-10-20T13:33:18+00:00
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    institution:  Met Office Hadley Centre / Climatic Research Unit, Universi...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    licence:      HadCRUT5 is licensed under the Open Government Licence v3.0...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    reference:    C. P. Morice, J. J. Kennedy, N. A. Rayner, J. P. Winn, E. H...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    source:       CRUTEM.5.0.1.0 HadSST.4.0.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    title:        HadCRUT.5.0.1.0 blended land air temperature and sea-surfac...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    version:      HadCRUT.5.0.1.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Conventions:  CF-1.7
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We&amp;rsquo;re particularly interested in the &lt;code&gt;Dimensions&lt;/code&gt; and &lt;code&gt;Data variables&lt;/code&gt;because that dictates how we will plot the data - we have 2073 time steps on a grid that is 72 longitude cells by 36 latitude cells. Importantly, the data we are interested in is within the &lt;code&gt;tas_mean&lt;/code&gt; data variable. We have 2073 time steps because the data is monthly and plotting 2073 time steps of temperature anomalies isn&amp;rsquo;t very informative, so let&amp;rsquo;s simplify this data by taking the average of the last decade. To do so, let&amp;rsquo;s first take annual averages for the entire dataset and then average over the last 10 years. Note, there are more elegant ways to write this code, but we&amp;rsquo;re trying to keep things simple.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# First take the annual mean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Note that this is noted weighted by days in each month for simplicity
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_annual_mean = hadcrut5_spatial[&amp;#39;tas_mean&amp;#39;].groupby(&amp;#34;time.year&amp;#34;).mean(&amp;#34;time&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# From annual means, let&amp;#39;s take the average of the last 10 years
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_last_decade = hadcrut5_annual_mean.sel(year=slice(2012, 2022)).mean(&amp;#34;year&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We now have our average of the last 10 years of HadCRUT5, so let&amp;rsquo;s plot the data. We have three options for how to do so: 1) plotting with &lt;code&gt;xarrays&lt;/code&gt; built in &lt;code&gt;.plot()&lt;/code&gt; function, 2) manually plotting the data using &lt;code&gt;matplotlib&lt;/code&gt;, or 3) create subplots with &lt;code&gt;matplotlib&lt;/code&gt; but plot using &lt;code&gt;xarray&lt;/code&gt;. Option 1 is incredibly simple and great for quickly visualizing the data but has limited customization. Option 2 requires a bit more code but is much more customizable - figure size and subplot orientation can be readily changed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Option 1 --------------------------------------------------------------------
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_last_decade.plot()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Produces:&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_827a6db5ab754ffaef21bcbd32e67e14.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_2e752823cb8f87acd3b1ab17c4694406.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/hadcrut_xarray_hub6a5c3cd9fc55b41b96cf56dfa8d4ff7_21490_827a6db5ab754ffaef21bcbd32e67e14.webp&#34;
+               width=&#34;389&#34;
+               height=&#34;279&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Option 3 --------------------------------------------------------------------
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Create figure instance
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fig = plt.figure(figsize = (8, 5))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Add subplot to figure instance and name it ax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ax = fig.add_subplot(111)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Plot - notice how we add the ax argument and point it to our created subplot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_last_decade.plot(ax=ax)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Produces:&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_0b725fbe9fb38a27393fa60594e76538.webp 400w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_e9c3b7bafa87a885b4c65eb4b7b635e1.webp 760w,
+               /post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/hadcrut_matplotlib_hu92456580e56fddf4f3c592621d13c105_156554_0b725fbe9fb38a27393fa60594e76538.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;475&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;In both plots we can make out the fundamental features of contemporary climate change! The Arctic is warming faster than the rest of the Earth and land masses are warming faster than the oceans. Neither of these visualizations are publication ready, so stay tuned for further tutorials on how to produce a polished, publication ready figure!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Part 1 - Installing Python</title>
+      <link>https://davidfastovich.github.io/post/pt_1_python_install/</link>
+      <pubDate>Wed, 05 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>https://davidfastovich.github.io/post/pt_1_python_install/</guid>
+      <description>&lt;p&gt;Open science is becoming the standard for reproducible science and many fields have coalesced around several coding languages in support of this. R and Python have seen tremendous use in the academy and for good reason: both are free and open-source with endless packages that extend core functionality that are commonly well documented. &lt;strong&gt;This series will work through everything you&amp;rsquo;ll need to get up running with Python and even begin doing some basic data manipulation and statistics.&lt;/strong&gt; In Part 1, we&amp;rsquo;re going to focus on getting Python installed and running, which we will verify by using Python as a calculator.&lt;/p&gt;
+&lt;p&gt;There are several ways to install Python and all have their advantages and disadvantages. I&amp;rsquo;ve found that using &lt;a href=&#34;https://www.anaconda.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Anaconda&lt;/a&gt; or &lt;a href=&#34;https://docs.conda.io/en/latest/miniconda.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;miniconda&lt;/a&gt; tends to be the easiest and the most user friendly. Anaconda has the advantage of having a graphical user interface, rather than relying on the command line making it a fantastic entry point for beginners. What&amp;rsquo;s the difference between simply going to &lt;a href=&#34;https://www.python.org/downloads/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Python&amp;rsquo;s&lt;/a&gt; website and installing that version? In terms of the Python installation, very little. However, in practice Anaconda solves many quality of life issues that plain Python installs have. For instance:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Aren&amp;rsquo;t comfortable with using command line tools? No problem! Anaconda has a complete GUI, even for installing packages.&lt;/li&gt;
+&lt;li&gt;Want to install a package? Anaconda commonly installs packages a bit faster with less of a headache.&lt;/li&gt;
+&lt;li&gt;Want to install a different version of Python? It&amp;rsquo;s a breeze with Anaconda! Just create a new Python environment and specify which version of Python you&amp;rsquo;d like to use.&lt;/li&gt;
+&lt;li&gt;Want to do spatial data analysis? Gone are the days of dealing with managing to get Python to talk to an &lt;a href=&#34;https://www.osgeo.org/projects/gdal/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;OGR/GDAL&lt;/a&gt; installation. Anaconda will install Python, OGR/GDAL, and make sure they&amp;rsquo;re communicating nicely with one another (this is also a huge boon if you use R).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For everything that Anaconda brings to the table there are several downsides. The biggest issue seems to be installing Python modules that are not in the Anaconda repository. If you run into a Python module that is not hosted by Anaconda, you can still install it using &lt;a href=&#34;https://pypi.org/project/pip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;pip&lt;/code&gt;&lt;/a&gt; in the command line, but this is usually not recommended. Anaconda likes to manage it&amp;rsquo;s own dependencies and using &lt;code&gt;pip&lt;/code&gt; can break Python environments because Anaconda and &lt;code&gt;pip&lt;/code&gt; don&amp;rsquo;t talk to one another too well. This means that &lt;code&gt;pip&lt;/code&gt; may install a version of a module that doesn&amp;rsquo;t agree with other installed modules. In practice, I&amp;rsquo;ve found this issue to be quite rare, but it does come up occasionally and there are usually ways around it.&lt;/p&gt;
+&lt;p&gt;With the background out the way let&amp;rsquo;s walk through the steps we need to install Anaconda, Python within it, and then write our first Python script.&lt;/p&gt;
+&lt;h2 id=&#34;step-1---download-anaconda&#34;&gt;Step 1 - Download Anaconda&lt;/h2&gt;
+&lt;p&gt;Follow hyperlink at right to download &lt;a href=&#34;https://www.anaconda.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Anaconda&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_434641e949fd8ea8f74193f1f3bbf4e8.webp 400w,
+               /post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_a64fc78d053018ada420f93498d1443e.webp 760w,
+               /post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_1_hu7fba9da1679ce4a56c592454604cb9c1_313486_434641e949fd8ea8f74193f1f3bbf4e8.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;402&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;step-2---install-anaconda&#34;&gt;Step 2 - Install Anaconda&lt;/h2&gt;
+&lt;p&gt;Double click on the .exe (Windows) or .pkg (MacOS) file and follow the prompts to install. No need to make any changes here - the default install settings and location are all okay to use (i.e. just click okay a bunch of times).&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_893aec3f0f7118c8de21511aa17cab88.webp 400w,
+               /post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_f484590d5f7a5be616f24d7b17d085bc.webp 760w,
+               /post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_2a_hu32708b02b4cbfc389c1efc17a7341f9e_83968_893aec3f0f7118c8de21511aa17cab88.webp&#34;
+               width=&#34;665&#34;
+               height=&#34;555&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_fbd81bac73c43626dc8a1955ca7dee95.webp 400w,
+               /post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_8816ee477ae497d91f1884472c502e16.webp 760w,
+               /post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_2b_hu620d1fc3fe6ab91e2bfd7280c01420ce_77293_fbd81bac73c43626dc8a1955ca7dee95.webp&#34;
+               width=&#34;747&#34;
+               height=&#34;581&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_1e6ce63a867a84bdc6bb91bba4d5d78a.webp 400w,
+               /post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_2574aac9829e12012d117e13a9cdae26.webp 760w,
+               /post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_2c_hu9c2969e7da500b50928f407b56c03fc8_77172_1e6ce63a867a84bdc6bb91bba4d5d78a.webp&#34;
+               width=&#34;747&#34;
+               height=&#34;581&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;step-3---getting-comfortable-with-anaconda-navigator&#34;&gt;Step 3 - Getting Comfortable with Anaconda Navigator&lt;/h2&gt;
+&lt;p&gt;Anaconda automatically creates a base environment with Python and many common tools preinstalled. However, its good practice to create new environments for different projects to ensure that dependencies between modules don&amp;rsquo;t break code for different projects. For the purposes of this tutorial, we&amp;rsquo;ll use the base environment that Anaconda creates. However, if you ever create a new Python environment be aware that it comes with &lt;em&gt;minimal&lt;/em&gt; modules preinstalled. When I create new environments I typically install the scientific Python stack as it contains the most commonly used functions you will need (&lt;a href=&#34;https://numpy.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NumPy&lt;/a&gt;, &lt;a href=&#34;https://scipy.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SciPy&lt;/a&gt;, &lt;a href=&#34;https://matplotlib.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matplotlib&lt;/a&gt;, &lt;a href=&#34;https://ipython.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;IPython&lt;/a&gt;, &lt;a href=&#34;https://pandas.pydata.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pandas&lt;/a&gt;, &lt;a href=&#34;https://www.sympy.org/en/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SymPy&lt;/a&gt;, &lt;a href=&#34;https://jupyter.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Jupyter Lab&lt;/a&gt;). Though not formally a part of the scientific Python stack I&amp;rsquo;d recommend also installing &lt;a href=&#34;https://www.spyder-ide.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spyder&lt;/a&gt; for a good integrated development environment for Python that is an excellent alternative to Jupyter Lab.&lt;/p&gt;
+&lt;p&gt;To open Anaconda, search for &amp;ldquo;Anaconda Navigator&amp;rdquo; in the Start Menu on a Windows Computer or Spotlight on a Mac.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_6bf3960e034421c2cd6656fef297018d.webp 400w,
+               /post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_99d92e1b5f3ed1aef225e7c2621ff925.webp 760w,
+               /post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_3a_hu8588e22fedae145f1cd8c5d4c4f8489d_143797_6bf3960e034421c2cd6656fef297018d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;619&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;This is the screen that will greet you when you open Anaconda Navigator:&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_14dc3ca0d469e1ffdb31e982e88c46da.webp 400w,
+               /post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_bdab5625b87a64749aae5baa03e4c6ee.webp 760w,
+               /post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_3b_huad9d31309d22bd681ebb118156a82a01_529848_14dc3ca0d469e1ffdb31e982e88c46da.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;476&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s familiarize ourselves with the layout. The currently active environment is listed to the right of &amp;ldquo;Applications on&amp;rdquo; and environments can be easily changed by clicking on the dropdown menu. What we see here are the pre-installed modules and programs in the &amp;ldquo;base (root)&amp;rdquo; environment. To view all existing environments, add modules, and manage environments you would click on the &amp;ldquo;Environments&amp;rdquo; tab where you should only see a single entry for the &amp;ldquo;base (root)&amp;rdquo; environment. We&amp;rsquo;ll save this for another tutorial, so for now let&amp;rsquo;s open up the integrated development environment we&amp;rsquo;ll be using today, Jupyter Lab.&lt;/p&gt;
+&lt;h2 id=&#34;step-4---youre-first-script&#34;&gt;Step 4 - You&amp;rsquo;re First Script!&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s use Jupyter Lab to write our first Python script and plot some data!&lt;/p&gt;
+&lt;p&gt;Go back to the &amp;ldquo;Home&amp;rdquo; page by clicking on the navigation menu on the left had side of Anaconda Navigator and scroll down until you see the Jupyter Lab logo and a &amp;ldquo;Launch&amp;rdquo; button. Click on &amp;ldquo;Launch&amp;rdquo; and Jupyter Lab.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_743f7fd58b6186c2eb33a33ca489093a.webp 400w,
+               /post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_d2da2e6033b5d9d920ae8bc4cf43aaf9.webp 760w,
+               /post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4a_hud6122fc23e6826b4367d4f8054012fe5_519887_743f7fd58b6186c2eb33a33ca489093a.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;476&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;That will open your browser and take you&amp;rsquo;re locally hosted instance of Jupyter Lab. From here we can create a new notebook file (extension .ipynb) and write our first script. But first, let&amp;rsquo;s change to a dark theme because it&amp;rsquo;s a bit easier on our eyes and looks nicer.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_0fcc8307ded715bbb4bb2e45d512b770.webp 400w,
+               /post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_938ed47d966b374cb227eeb5fc494efe.webp 760w,
+               /post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4b_hu7fba9da1679ce4a56c592454604cb9c1_714559_0fcc8307ded715bbb4bb2e45d512b770.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;From here click on the &amp;ldquo;Python 3 (ipykernel) option to create a new Jupyter Notebook file.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_77f737577ca5731576f5eeddb9e7b426.webp 400w,
+               /post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_0491c6c115e0f4a4cf3bf3c0864d8567.webp 760w,
+               /post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4c_hu7fba9da1679ce4a56c592454604cb9c1_642776_77f737577ca5731576f5eeddb9e7b426.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;This will be the screen that will greet you when you open a new Jupyter Notebook. Let&amp;rsquo;s get acquainted with the features of a Jupyter Notebook.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_90e6f191d92258c56f4e7a2a8ad10d41.webp 400w,
+               /post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_c7aff4bc12e9cccce48d893a6e30a818.webp 760w,
+               /post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4d_hu7fba9da1679ce4a56c592454604cb9c1_620179_90e6f191d92258c56f4e7a2a8ad10d41.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The first empty box you see is called a &amp;ldquo;cell&amp;rdquo; and it can contain Python code, plain text, or Markdown code.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_56f4fc05dde34dd7cfec1a4685e0f9bd.webp 400w,
+               /post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_24dd5b5863a5dfe053620843d3eee86d.webp 760w,
+               /post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4e_hu7fba9da1679ce4a56c592454604cb9c1_655726_56f4fc05dde34dd7cfec1a4685e0f9bd.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;By default, the first cell is defined as Python code, but let&amp;rsquo;s change it to Markdown and title our first Jupyter Notebook to &lt;code&gt;# My First Notebook&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_750d74c7de7f4aa3f6b3a9207b995138.webp 400w,
+               /post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_6eba02b3e72e63be502b4ff75c054ea5.webp 760w,
+               /post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4f_hu7fba9da1679ce4a56c592454604cb9c1_623264_750d74c7de7f4aa3f6b3a9207b995138.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_37904d34d015d6cb0524f0399245faa2.webp 400w,
+               /post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_257ce2eb7d2751d9c442bb33f28bcc89.webp 760w,
+               /post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4g_hu7fba9da1679ce4a56c592454604cb9c1_453540_37904d34d015d6cb0524f0399245faa2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;461&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_04ffc32be58b26c33b96b243c49b1642.webp 400w,
+               /post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_ac19388babc0d069ca76aec86a76f5d7.webp 760w,
+               /post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4h_hu7fba9da1679ce4a56c592454604cb9c1_630636_04ffc32be58b26c33b96b243c49b1642.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;On your keyboard hit Ctrl + Enter on PC/Linux or Command + Enter on a Mac to render the Markdown cell. Alternatively, you can go to &amp;ldquo;Run&amp;rdquo; and select &amp;ldquo;Render All Markdown Cells&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_30d8b5508b76b5963f138114558727f1.webp 400w,
+               /post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_fe3fc31a8f5d4ac6ba090e7180b4e7e9.webp 760w,
+               /post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4i_hu7fba9da1679ce4a56c592454604cb9c1_641115_30d8b5508b76b5963f138114558727f1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Now that we have a title let&amp;rsquo;s create a new cell below the title to hold our very first Python code. To do that, click the small plus sign in the top left hand corner of the main notebook interface. Alternatively, you can hit B, B twice on your keyboard. Again, notice how the cell defaults to &amp;ldquo;Code&amp;rdquo; which means it will run Python code.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_b20754cd08b787e3322fb5f069625dc7.webp 400w,
+               /post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_cae0707e2aaafbd8c6056f1640b4db8f.webp 760w,
+               /post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4j_hu7fba9da1679ce4a56c592454604cb9c1_642605_b20754cd08b787e3322fb5f069625dc7.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;From here, lets use Python to print a message for us by typing in &lt;code&gt;print(&amp;quot;Hello World)&lt;/code&gt; into the new cell and run the cell by using our keyboard shortcut from earlier (Ctrl + Enter on PC/Linux or Command + Enter on a Mac). You&amp;rsquo;ll be greeted with a small message below your cell!&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_5e7e290ff5183d8353c78a87a25c4317.webp 400w,
+               /post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_08d35bb1c3ad0f18bf43a132466c1d57.webp 760w,
+               /post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4k_hu7fba9da1679ce4a56c592454604cb9c1_655996_5e7e290ff5183d8353c78a87a25c4317.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Now, printing &amp;ldquo;Hello World&amp;rdquo; isn&amp;rsquo;t quite scientific computing, so let&amp;rsquo;s also use this cell as a calculator by typing in &lt;code&gt;2 + 2&lt;/code&gt; below &lt;code&gt;print(&amp;quot;Hello World&amp;quot;)&lt;/code&gt; and run the cell by using our keyboard shortcut from earlier (Ctrl + Enter on PC/Linux or Command + Enter on a Mac). Once you do that you will be greeted with the answer: &lt;code&gt;4&lt;/code&gt;!&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_156a91e84388223939928843e5fc8c5c.webp 400w,
+               /post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_bc14f0601d007112880d59078acfc9e9.webp 760w,
+               /post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://davidfastovich.github.io/post/pt_1_python_install/step_4l_hu7fba9da1679ce4a56c592454604cb9c1_658831_156a91e84388223939928843e5fc8c5c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;481&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s all there is to it! You now have the tools at hand to start writing your own Python scripts and programs for all of your scientific computing needs.&lt;/p&gt;
+&lt;p&gt;I find that half the battle of starting to learn a new computing language (or anything for the most part) is learning the language. So now that we have a bit of experience with Python let&amp;rsquo;s finish up with a brief review of some vocabulary we learned today.&lt;/p&gt;
+&lt;h2 id=&#34;vocabulary&#34;&gt;Vocabulary&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Anaconda&lt;/strong&gt; - a tool used to create and manage Python installations (environments)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Environment&lt;/strong&gt; - a self-contained installation of Python/R in Anaconda navigator. A single computer can have many environments depending on the needs of the project. For instance, I may want an old Python 2.X environment if I have a tool that only supports Python 2.X.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Jupyter Lab&lt;/strong&gt; - an integrated development environment for Jupyter Notebooks&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Jupyter Notebook&lt;/strong&gt; - an interactive document that can store Python (and R) code, Markdown, and plain text to facilitate open science through the easy sharing of code with the .ipynb file extension&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cell&lt;/strong&gt; - the fundamental unit of the Jupyter Notebook, which contains either code, Markdown, or plain text&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Part 2 will introduce you to using &lt;a href=&#34;https://numpy.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NumPy&lt;/a&gt;, &lt;a href=&#34;https://matplotlib.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matplotlib&lt;/a&gt;, and &lt;a href=&#34;https://pandas.pydata.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pandas&lt;/a&gt; for ingesting, processing, and plotting data. Once written you will find a link for it &lt;a href=&#34;https://davidfastovich.github.io/post/pt_2_matplotlib_numpy_pandas/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Python, Jupyter Notebooks, and xarray introduction</title>
