@@ -220,7 +220,7 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import xarray as xr
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let&amp;rsquo;s download the spatially explicit global mean annual temperatures from GISTEMP v4, the counterpart to the time series plot we just made. Unlike &lt;code&gt;pandas&lt;/code&gt;, &lt;code&gt;xarray&lt;/code&gt; does not support reading files off of the internet (this is only half true, but to keep things simple we won&amp;rsquo;t worry about it), so we&amp;rsquo;ll have to manually download the data and put the data file in the correct location to read it into Python using &lt;code&gt;xarray&lt;/code&gt;. Download the HadCRUT5 netCDF file from &lt;a href=&#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and place the file in &lt;code&gt;C:\Users\&lt;/code&gt; on Windows or &lt;code&gt;~/&lt;/code&gt; on MacOS and most Linux distributions.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Read in file - if you get an error here, it likely means the file is not in the correct location
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_spatial = xr.open_dataset(&amp;#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_spatial = xr.open_dataset(&amp;#34;HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&amp;#34;)
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Let&amp;#39;s take a look at the data structure
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hadcrut5_spatial
@@ -326,7 +326,7 @@
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;In both plots we can make out the fundamental features of contemporary climate change! The Arctic is warming faster than the rest of the Earth and land masses are warming faster than the oceans. Neither of these visualizations are publication ready, so stay tuned for further tutorials on how to produce a polished, publication ready figure!&lt;/p&gt;
+&lt;p&gt;In both plots we can make out the fundamental features of contemporary climate change! The Arctic is warming faster than the rest of the Earth and land masses are warming faster than the oceans. Neither of these visualizations are publication ready, so stay tuned for further tutorials on how to produce a polished, publication-ready figure!&lt;/p&gt;
 </description>
     </item>
     

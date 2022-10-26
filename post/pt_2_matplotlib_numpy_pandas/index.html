@@ -1084,7 +1084,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import xarray as xr
 </span></span></code></pre></div><p>Now let&rsquo;s download the spatially explicit global mean annual temperatures from GISTEMP v4, the counterpart to the time series plot we just made. Unlike <code>pandas</code>, <code>xarray</code> does not support reading files off of the internet (this is only half true, but to keep things simple we won&rsquo;t worry about it), so we&rsquo;ll have to manually download the data and put the data file in the correct location to read it into Python using <code>xarray</code>. Download the HadCRUT5 netCDF file from <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc" target="_blank" rel="noopener">here</a> and place the file in <code>C:\Users\</code> on Windows or <code>~/</code> on MacOS and most Linux distributions.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Read in file - if you get an error here, it likely means the file is not in the correct location
-</span></span><span class="line"><span class="cl">hadcrut5_spatial = xr.open_dataset(&#34;https://www.metoffice.gov.uk/hadobs/hadcrut5/data/current/analysis/HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&#34;)
+</span></span><span class="line"><span class="cl">hadcrut5_spatial = xr.open_dataset(&#34;HadCRUT.5.0.1.0.analysis.anomalies.ensemble_mean.nc&#34;)
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"># Let&#39;s take a look at the data structure
 </span></span><span class="line"><span class="cl">hadcrut5_spatial
@@ -1190,7 +1190,7 @@
                loading="lazy" data-zoomable /></div>
   </div></figure>
 </p>
-<p>In both plots we can make out the fundamental features of contemporary climate change! The Arctic is warming faster than the rest of the Earth and land masses are warming faster than the oceans. Neither of these visualizations are publication ready, so stay tuned for further tutorials on how to produce a polished, publication ready figure!</p>
+<p>In both plots we can make out the fundamental features of contemporary climate change! The Arctic is warming faster than the rest of the Earth and land masses are warming faster than the oceans. Neither of these visualizations are publication ready, so stay tuned for further tutorials on how to produce a polished, publication-ready figure!</p>
 
     </div>
 
