@@ -27,7 +27,7 @@
 &lt;/ul&gt;
 &lt;p&gt;If following along with the script isn&amp;rsquo;t your cup of tea, feel free to open the script and actually run the code through Binder! Just click on the icon below and wait a few minutes for the Binder environment to build. From there, you&amp;rsquo;ll be able to run and edit the code for yourself in JupyterLab! If you&amp;rsquo;re unfamiliar with JupyterLab, wait for an upcoming blog post that introduces JupyterLab and how to use it for scientific computing - I&amp;rsquo;ll be sure to link it here once it&amp;rsquo;s up.&lt;/p&gt;
 &lt;script src=&#34;https://gist.github.com/davidfastovich/93b1b569cb8fd8433d9d80d9ff8725ea.js&#34;&gt;&lt;/script&gt;
-&lt;p&gt;&lt;a href=&#34;https://mybinder.org/v2/gh/davidfastovich/Python-Jupyter-Tutorial/c3aba8a7a98825e5112bebdf87c0f1cb304d6cf0?urlpath=lab%2Ftree%2FR%2BPython.ipynb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;
+&lt;p&gt;Click on this badge to run this code in the cloud: &lt;a href=&#34;https://mybinder.org/v2/gh/davidfastovich/Python-Jupyter-Tutorial/c3aba8a7a98825e5112bebdf87c0f1cb304d6cf0?urlpath=lab%2Ftree%2FR%2BPython.ipynb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;
 
 
 
