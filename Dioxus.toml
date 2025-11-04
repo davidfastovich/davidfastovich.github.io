@@ -1,0 +1,25 @@
+[application]
+
+[web.app]
+# base_path = "ecvlab.github.io"
+
+# HTML title tag content
+title = "EcoClimate Variability Lab"
+
+# include `assets` in web platform
+[web.resource]
+
+# Additional CSS style files
+style = []
+
+# Additional JavaScript files
+script = []
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = []
+
+[bundle]
+icon = ["assets/icons/favicon.svg"]
