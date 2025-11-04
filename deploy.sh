@@ -22,7 +22,7 @@ rm -rf gh-pages/*
 
 # Copy new site files
 cp -r $BUILD_DIR/* gh-pages/
-echo "$CNAME" > gh-pages/CNAME
+# echo "$CNAME" > gh-pages/CNAME
 
 # Add a fallback 404 page for GitHub Pages
 cp gh-pages/index.html gh-pages/404.html
