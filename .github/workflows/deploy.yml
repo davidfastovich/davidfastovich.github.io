@@ -1,4 +1,4 @@
-name: Build and Deploy Dioxus Web
+name: Build and deploy davidfastovich.github.io
 
 on:
   push:
