@@ -1309,6 +1309,7 @@ dependencies = [
  "dioxus-free-icons",
  "reqwest",
  "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]
