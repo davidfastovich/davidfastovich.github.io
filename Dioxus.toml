@@ -1,7 +1,7 @@
 [application]
 
 [web.app]
-# base_path = "ecvlab.github.io"
+# base_path = "davidfastovich.github.io"
 
 # HTML title tag content
 title = "EcoClimate Variability Lab"

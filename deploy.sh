@@ -2,7 +2,7 @@
 set -e  # exit on any error
 
 TARGET_BRANCH="gh-pages"
-BUILD_DIR="/home/runner/work/ecvlab.github.io/ecvlab.github.io/target/dx/ecvlab-github-io/release/web/public"
+BUILD_DIR="/home/runner/work/davidfastovich.github.io/davidfastovich.github.io/target/dx/ecvlab-github-io/release/web/public"
 CNAME="davidfastovich.github.io"
 
 # Build the Dioxus web bundle
