@@ -57,26 +57,6 @@ fn main() {
 #[component]
 fn App() -> Element {
 
-    use_effect(|| {
-    let document = web_sys::window().unwrap().document().unwrap();
-    
-    // First script - gtag loader
-    let script1 = document.create_element("script").unwrap();
-    script1.set_attribute("async", "").unwrap();
-    script1.set_attribute("src", "https://www.googletagmanager.com/gtag/js?id=G-JN7B9YD2EF").unwrap();
-    document.head().unwrap().append_child(&script1).unwrap();
-    
-    // Second script - gtag config
-    let script2 = document.create_element("script").unwrap();
-    script2.set_inner_html(r#"
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-JN7B9YD2EF');
-    "#);
-    document.head().unwrap().append_child(&script2).unwrap();
-    });
-
     // The `rsx!` macro lets us define HTML inside of rust. It expands to an Element with all of our HTML inside.
     rsx! {
         // In addition to element and text (which we will see later), rsx can contain other components. In this case,
