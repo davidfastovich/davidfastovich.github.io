@@ -25,3 +25,6 @@ pub use header::Header;
 
 mod footer;
 pub use footer::Footer;
+
+mod analytics;
+pub use analytics::Analytics;
