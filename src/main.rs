@@ -2,7 +2,7 @@
 // need dioxus
 use dioxus::prelude::*;
 
-use views::{Home, People, Facilities, Publications, Header, Footer, Analytics};
+use views::{Home, People, Facilities, Publications, Header, Footer};
 
 /// Define a components module that contains all shared components for our app.
 mod components;
@@ -57,19 +57,18 @@ fn main() {
 #[component]
 fn App() -> Element {
 
-    // use_effect(|| {
-    //     let document = web_sys::window().unwrap().document().unwrap();
-    //     let script = document.create_element("script").unwrap();
-    //     script.set_attribute("data-collect-dnt", "true").unwrap();
-    //     script.set_attribute("async", "").unwrap();
-    //     script.set_attribute("src", "https://scripts.simpleanalyticscdn.com/latest.js").unwrap();
-    //     document.body().unwrap().append_child(&script).unwrap();
-    // });
+    use_effect(|| {
+        let document = web_sys::window().unwrap().document().unwrap();
+        let script = document.create_element("script").unwrap();
+        script.set_attribute("data-collect-dnt", "true").unwrap();
+        script.set_attribute("async", "").unwrap();
+        script.set_attribute("src", "https://scripts.simpleanalyticscdn.com/latest.js").unwrap();
+        document.body().unwrap().append_child(&script).unwrap();
+    });
 
     // The `rsx!` macro lets us define HTML inside of rust. It expands to an Element with all of our HTML inside.
     rsx! {
 
-        Analytics {}
         // In addition to element and text (which we will see later), rsx can contain other components. In this case,
         // we are using the `document::Link` component to add a link to our favicon and main CSS file into the head of our app.
         document::Link { rel: "icon", href: FAVICON }  
